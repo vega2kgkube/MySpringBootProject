@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 public class MyPropsRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        System.out.println("VM Arguments = " + args.containsOption("foo"));
+        System.out.println("Program Arguments = " + args.containsOption("bar"));
 
     }
 }
