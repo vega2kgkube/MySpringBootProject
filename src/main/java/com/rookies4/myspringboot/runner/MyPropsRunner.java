@@ -1,5 +1,6 @@
 package com.rookies4.myspringboot.runner;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -8,8 +9,17 @@ import java.util.function.Consumer;
 
 @Component
 public class MyPropsRunner implements ApplicationRunner {
+    @Value("${myboot.name}")
+    private String name;
+
+    @Value("${myboot.age}")
+    private int age;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        System.out.println("Properties myboot.name = " + name);
+        System.out.println("Properties myboot.age = " + age);
+
         System.out.println("VM Arguments = " + args.containsOption("foo")); //false
         System.out.println("Program Arguments = " + args.containsOption("bar")); //true
         
