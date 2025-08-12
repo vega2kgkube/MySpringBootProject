@@ -16,7 +16,7 @@ public class MySpringBoot3ProjectApplication {
         //SpringApplication.run(MySpringBoot3ProjectApplication.class, args);
         SpringApplication application = new SpringApplication(MySpringBoot3ProjectApplication.class);
         //Application 타입을 변경하기
-        application.setWebApplicationType(WebApplicationType.NONE);
+        application.setWebApplicationType(WebApplicationType.SERVLET);
         application.run(args);
     }
 
