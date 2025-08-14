@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.junit.jupiter.api.Assertions.*;
 //assertj 라이브러리의 Assertions 클래스
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,11 +34,17 @@ class CustomerRepositoryTest {
             assertThat(existCustomer.getId()).isEqualTo(1L);
         }
 
-        //Optional의 T orElseGet(Supplier) 고객변호(AC001)가 존재하는 경우
+        //Optional의 T orElseGet(Supplier) 고객번호(AC001)가 존재하는 경우
         //Supplier의 추상메서드 T get()
         Optional<Customer> customerByCustomerId = customerRepository.findByCustomerId("AC001");
         Customer ac001Customer = customerByCustomerId.orElseGet(() -> new Customer());
         assertThat(ac001Customer.getCustomerName()).isEqualTo("스프링부트");
+
+        //고객번호(AC003)가 존재하지 않는 경우
+        Customer notFoundCustomer =
+                customerRepository.findByCustomerId("AC003").orElseGet(() -> new Customer());
+        assertThat(notFoundCustomer.getCustomerName()).isNull();
+
 
     }
 
