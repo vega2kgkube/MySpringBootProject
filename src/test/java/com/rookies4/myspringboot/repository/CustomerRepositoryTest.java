@@ -22,13 +22,14 @@ class CustomerRepositoryTest {
     void testSaveCustomer() {
         //Given (준비단계)
         Customer customer = new Customer();
-        customer.setCustomerId("AC001");
-        customer.setCustomerName("스프링부트");
+        customer.setCustomerId("AC002");
+        customer.setCustomerName("스프링FW");
         //When (실행단계)
         Customer savedCustomer = customerRepository.save(customer);
         //Then (검증단계)
         //등록된 Customer 엔티티객체가 Null이 아닌지를 검증하기
         assertThat(savedCustomer).isNotNull();
+        assertThat(savedCustomer.getCustomerName()).isEqualTo("스프링FW");
     }
 
 }
