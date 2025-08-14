@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,14 +22,23 @@ public class UserRestController {
 //        this.userRepository = userRepository;
 //    }
 
+    //등록
     @PostMapping
     public UserEntity create(@RequestBody UserEntity user){
         return userRepository.save(user);
     }
 
+    //전체목록 조회
     @GetMapping
     public List<UserEntity> getUsers() {
         return userRepository.findAll();
+    }
+    //ID로 조회
+    @GetMapping("/{id}")
+    public UserEntity getUser(@PathVariable Long id){
+        Optional<UserEntity> optionalUser = userRepository.findById(id);
+        UserEntity existUser = optionalUser.orElseThrow();
+        return existUser;
     }
 
 }
