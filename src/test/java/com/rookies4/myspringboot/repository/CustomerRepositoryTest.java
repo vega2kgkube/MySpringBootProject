@@ -27,8 +27,8 @@ class CustomerRepositoryTest {
         Customer customer =
                 customerRepository.findByCustomerId("AC001")
                         .orElseThrow(() -> new RuntimeException("Customer Not Found"));
-        customer.setCustomerName("SpringBoot");
-        customerRepository.save(customer);
+        customer.setCustomerName("마이둘리");
+        //customerRepository.save(customer);
     }
 
     @Test
