@@ -1,11 +1,14 @@
 package com.rookies4.myspringboot.repository;
 
 import com.rookies4.myspringboot.entity.Customer;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 //assertj 라이브러리의 Assertions 클래스
@@ -17,8 +20,18 @@ class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
 
+
+    @Test
+    //Customer 조회
+    void testFindCustomer() {
+        //findById() 호출
+        Optional<Customer> customerById = customerRepository.findById(1L);
+    }
+
     @Test
     @Rollback(value = false) //Rollback 처리하지 마세요!!
+    @Disabled
+    //Customer 등록
     void testSaveCustomer() {
         //Given (준비단계)
         Customer customer = new Customer();
@@ -29,6 +42,7 @@ class CustomerRepositoryTest {
         //Then (검증단계)
         //등록된 Customer 엔티티객체가 Null이 아닌지를 검증하기
         assertThat(savedCustomer).isNotNull();
+        //등록된 Customer Name값이 동일한지 검증하기
         assertThat(savedCustomer.getCustomerName()).isEqualTo("스프링FW");
     }
 
