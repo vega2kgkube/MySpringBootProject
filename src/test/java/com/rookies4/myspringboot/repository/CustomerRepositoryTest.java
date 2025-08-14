@@ -33,6 +33,12 @@ class CustomerRepositoryTest {
             assertThat(existCustomer.getId()).isEqualTo(1L);
         }
 
+        //Optional의 T orElseGet(Supplier) 고객변호(AC001)가 존재하는 경우
+        //Supplier의 추상메서드 T get()
+        Optional<Customer> customerByCustomerId = customerRepository.findByCustomerId("AC001");
+        Customer ac001Customer = customerByCustomerId.orElseGet(() -> new Customer());
+        assertThat(ac001Customer.getCustomerName()).isEqualTo("스프링부트");
+
     }
 
     @Test
