@@ -21,6 +21,14 @@ class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
 
+    @Test
+    //Customer 조회 존재하지 않으면 예외발생
+    void testNotFoundCustomer() {
+        Customer notFoundCustomer =
+                customerRepository.findByCustomerId("AC003")
+                        .orElseThrow(() -> new RuntimeException("Customer Not Found"));
+    }
+
 
     @Test
     //Customer 조회
@@ -44,8 +52,6 @@ class CustomerRepositoryTest {
         Customer notFoundCustomer =
                 customerRepository.findByCustomerId("AC003").orElseGet(() -> new Customer());
         assertThat(notFoundCustomer.getCustomerName()).isNull();
-
-
     }
 
     @Test
