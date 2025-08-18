@@ -21,7 +21,6 @@ public class UserController {
         return new ModelAndView("index","users",userEntityList);
     }
 
-
     @GetMapping("/thymeleaf")
     public String leaf(Model model) {
         model.addAttribute("name", "스프링부트");
