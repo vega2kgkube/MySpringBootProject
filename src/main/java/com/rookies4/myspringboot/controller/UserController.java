@@ -15,7 +15,7 @@ import java.util.List;
 public class UserController {
     private final UserRepository userRepository;
 
-    @GetMapping("/index")
+    @GetMapping("/users/index")
     public ModelAndView index() {
         List<UserEntity> userEntityList = userRepository.findAll();
         return new ModelAndView("index","users",userEntityList);
