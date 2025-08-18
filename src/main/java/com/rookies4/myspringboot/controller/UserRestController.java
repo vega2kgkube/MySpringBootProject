@@ -42,7 +42,7 @@ public class UserRestController {
         UserEntity existUser = getExistUser(id);
         return existUser;
     }
-    //Email로 조회하고, 수정
+    //Email로 조회하고, 수정하기
     @PatchMapping("/{email}/")
     public UserEntity updateUser(@PathVariable String email, @RequestBody UserEntity userDetail){
         UserEntity existUser = userRepository.findByEmail(email) //Optional<UserEntity>
@@ -53,7 +53,7 @@ public class UserRestController {
         UserEntity updateUser = userRepository.save(existUser);
         return updateUser;
     }
-    //삭제
+    //삭제하기
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id){
         UserEntity existUser = getExistUser(id);
