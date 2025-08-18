@@ -27,19 +27,21 @@ public class UserController {
     @PostMapping("/users/adduser")
     public String addUser(@Valid @ModelAttribute("user") UserEntity user,
                           BindingResult result, Model model) {
+        //검증 오류가 발생한 경우
         if (result.hasErrors()) {
             return "add-user";
         }
+        //등록
         userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
-        return "index";
-        //return "redirect:/index";
+        //model.addAttribute("users", userRepository.findAll());
+        //return "index";
+        return "redirect:/users/index";
     }
 
     @GetMapping("/users/index")
     public ModelAndView index() {
         List<UserEntity> userEntityList = userRepository.findAll();
-        return new ModelAndView("index","users",userEntityList);
+        return new ModelAndView("index","users", userEntityList);
     }
 
     @GetMapping("/thymeleaf")
