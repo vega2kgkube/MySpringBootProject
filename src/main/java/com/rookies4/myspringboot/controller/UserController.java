@@ -31,10 +31,11 @@ public class UserController {
         if (result.hasErrors()) {
             return "add-user";
         }
-        //등록
+        //등록처리
         userRepository.save(user);
         //model.addAttribute("users", userRepository.findAll());
         //return "index";
+        //User목록조회하는 Path로 URL Redirection 하기
         return "redirect:/users/index";
     }
 
