@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -14,6 +15,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserRepository userRepository;
+
+    @GetMapping("/users/signup")
+    public String showSignUpForm(@ModelAttribute("user") UserEntity user) {
+        return "add-user";
+    }
 
     @GetMapping("/users/index")
     public ModelAndView index() {
