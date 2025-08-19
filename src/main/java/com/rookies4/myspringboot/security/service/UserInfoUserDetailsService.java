@@ -21,13 +21,14 @@ public class UserInfoUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        //입력한 username (email 주소)에 해당하는 UserInfo 객체 추출하기
         Optional<UserInfo> optionalUserInfo = repository.findByEmail(username);
         return optionalUserInfo.map(userInfo -> new UserInfoUserDetails(userInfo))
                 //userInfo.map(UserInfoUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("user not found " + username));
 
     }
-
+    //UserInfo 엔티티 등록
     public String addUser(UserInfo userInfo) {
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         UserInfo savedUserInfo = repository.save(userInfo);
