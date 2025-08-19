@@ -48,7 +48,7 @@ public class SecurityConfig {
                 //요청별로 권한을 설정        
                 .authorizeHttpRequests(auth -> {
                     // api/users/welcome 경로는 인증 없이 접근가능함
-                    auth.requestMatchers("/api/users/welcome").permitAll()
+                    auth.requestMatchers("/api/users/welcome","/userinfos/new").permitAll()
                      //  api/users/welcome 경로는 인증이 반드시 필요함
                             .requestMatchers("/api/users/**").authenticated();
                 })
