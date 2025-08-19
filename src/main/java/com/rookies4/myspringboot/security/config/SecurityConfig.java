@@ -2,6 +2,7 @@ package com.rookies4.myspringboot.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -15,7 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity  //Authentication (인증) 활성화
+@EnableMethodSecurity //Authorization (권한) 활성화
 public class SecurityConfig {
     @Bean
     //패스워드 암호화
@@ -41,11 +43,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(csrf -> csrf.disable())
+        return  //csrf 기능 비활성화
+                http.csrf(csrf -> csrf.disable())
+                //요청별로 권한을 설정        
                 .authorizeHttpRequests(auth -> {
+                    // api/users/welcome 경로는 인증 없이 접근가능함
                     auth.requestMatchers("/api/users/welcome").permitAll()
+                     //  api/users/welcome 경로는 인증이 반드시 필요함
                             .requestMatchers("/api/users/**").authenticated();
                 })
+                 // form로그인 페이지는 스프링이 디폴트로 제공하는 페이지를 사용하겠다.
                 .formLogin(withDefaults())
                 .build();
     }
