@@ -1,7 +1,10 @@
 package com.rookies4.myspringboot.security.config;
 
+import com.rookies4.myspringboot.security.service.UserInfoUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,21 +28,37 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    //UserDetailsService 인터페이스를 구현한 객체를 Bean으로 설정하기
     @Bean
-    //authentication(인증)을 위한 User 생성 (관리자, 일반사용자)
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        //관리자 생성
-        UserDetails admin = User.withUsername("adminboot")
-                .password(encoder.encode("pwd1"))
-                .roles("ADMIN")
-                .build();
-        //일반사용자 생성
-        UserDetails user = User.withUsername("userboot")
-                .password(encoder.encode("pwd2"))
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(admin, user);
+    public UserDetailsService userDetailsService() {
+        return new UserInfoUserDetailsService();
     }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        //UserDetailsService Bean을 설정하기
+        authenticationProvider.setUserDetailsService(userDetailsService());
+        //BCryptPasswordEncoder Bean을 설정하기
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+
+//    @Bean
+//    //authentication(인증)을 위한 User 생성 (관리자, 일반사용자)
+//    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
+//        //관리자 생성
+//        UserDetails admin = User.withUsername("adminboot")
+//                .password(encoder.encode("pwd1"))
+//                .roles("ADMIN")
+//                .build();
+//        //일반사용자 생성
+//        UserDetails user = User.withUsername("userboot")
+//                .password(encoder.encode("pwd2"))
+//                .roles("USER")
+//                .build();
+//        return new InMemoryUserDetailsManager(admin, user);
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
