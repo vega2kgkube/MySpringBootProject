@@ -25,7 +25,7 @@ public class Student {
     private String name;
     
     //학번
-    @Column(nullable = false, unique = true)
+    @Column(unique = true, nullable = false)
     private String studentNumber;
 
     /*
