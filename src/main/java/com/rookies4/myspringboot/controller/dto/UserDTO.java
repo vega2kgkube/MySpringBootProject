@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 public class UserDTO {
     
-    //등록 입력
+    //등록 데이터 입력 DTO Inner class
     @Getter
     @Setter
     public static class UserCreateRequest {
@@ -19,6 +19,7 @@ public class UserDTO {
         @NotBlank(message = "Email 은 필수 입력항목입니다.")
         private String email;
 
+        // DTO를 Entity로 변환하는 메서드
         public UserEntity toEntity() {
             UserEntity user = new UserEntity();
             user.setName(this.name);
@@ -27,7 +28,7 @@ public class UserDTO {
         }
     }
     
-    //수정 입력
+    //수정 데이터 입력 DTO Inner class
     @Getter
     @Setter
     public static class UserUpdateRequest {
@@ -35,7 +36,7 @@ public class UserDTO {
         private String name;
     }
     
-    //조회 출력
+    //조회한 데이터 출력 DTO Inner class
     @Getter
     public static class UserResponse {
         private Long id;
