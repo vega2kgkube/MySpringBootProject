@@ -27,6 +27,14 @@ public class Student {
     //학번
     @Column(nullable = false, unique = true)
     private String studentNumber;
-    
+
+    /*
+        양방향관계 Student에서 StudentDetail을 참조할 수 있도록
+        FK에 해당하는 필드명을 mappedBy에 설정한다.*
+     */
+    //1:1관계 지연로딩
+    @OneToOne(fetch = FetchType.LAZY,
+              mappedBy = "student",
+              cascade = CascadeType.ALL)
     private StudentDetail studentDetail;
 }

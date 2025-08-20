@@ -38,7 +38,10 @@ public class StudentDetail {
     @Column
     private LocalDate dateOfBirth;
 
+    //FK를 가진 엔티티가 주인(Owner)이다.
     //@JoinColumn은 FK(외래키)에 해당하는 어노테이션
+    //1:1관계 지연로딩
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", unique = true)
     private Student student;
 }
