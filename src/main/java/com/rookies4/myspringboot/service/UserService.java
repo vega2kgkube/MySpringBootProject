@@ -32,7 +32,8 @@ public class UserService {
 
     //Id로 User 조회하기
     public UserDTO.UserResponse getUserById(Long id){
-
+        UserEntity userEntity = getUserExist(id);
+        return new UserDTO.UserResponse(userEntity);
     }
 
     //내부 Helper Method
