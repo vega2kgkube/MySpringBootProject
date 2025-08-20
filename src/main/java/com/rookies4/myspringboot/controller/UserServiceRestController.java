@@ -32,4 +32,11 @@ public class UserServiceRestController {
     public ResponseEntity<List<UserDTO.UserResponse>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
+
+    @PatchMapping("/{email}")
+    public ResponseEntity<UserDTO.UserResponse> updateUser(@PathVariable String email,
+                                                           @Valid @RequestBody UserDTO.UserUpdateRequest request){
+        return ResponseEntity.ok(userService.updateUser(email,request));
+    }
+
 }
