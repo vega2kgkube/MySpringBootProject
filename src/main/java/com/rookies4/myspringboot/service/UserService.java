@@ -29,4 +29,16 @@ public class UserService {
         //Entity => DTO로 변환 후 리턴됨
         return new UserDTO.UserResponse(savedEntity);
     }
+
+    //Id로 User 조회하기
+    public UserDTO.UserResponse getUserById(Long id){
+
+    }
+
+    //내부 Helper Method
+    private UserEntity getUserExist(Long id){
+        return userRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("User Not Found", HttpStatus.NOT_FOUND));
+    }
+
 }
