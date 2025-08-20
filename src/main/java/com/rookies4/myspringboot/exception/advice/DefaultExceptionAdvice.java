@@ -113,7 +113,9 @@ public class DefaultExceptionAdvice {
         ex.getBindingResult()
                 .getAllErrors()
                 .forEach((error) -> {
+                    //필드명
                     String fieldName = ((FieldError) error).getField();
+                    //필드에러 메시지
                     String errorMessage = error.getDefaultMessage();
                     errors.put(fieldName, errorMessage);
                 });
@@ -129,13 +131,18 @@ public class DefaultExceptionAdvice {
         return ResponseEntity.badRequest().body(response);
     }
 
+    //입력항목을 검증할때 발생한 에러정보를 출력하는 DTO
     @Getter
     @Setter
     @AllArgsConstructor
     public static class ValidationErrorResponse {
+        //에러코드
         private int status;
+        //에러메시지
         private String message;
+        //에러발생한 시간
         private LocalDateTime timestamp;
+        //개별항목에 에러정보
         private Map<String, String> errors;
     }
 }
