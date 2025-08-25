@@ -122,6 +122,7 @@ public class StudentService {
             // Create new detail if not exists
             if (studentDetail == null) {
                 studentDetail = new StudentDetail();
+                //양방향 연관관계 설정
                 studentDetail.setStudent(student);
                 student.setStudentDetail(studentDetail);
             }
