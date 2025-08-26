@@ -94,15 +94,12 @@ public class StudentService {
     public StudentDTO.Response updateStudent(Long id, StudentDTO.Request request) {
         // Find the student
         Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("Student not found with id: "
-                        + id, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Student", "Id", id));
 
         // Check if another student already has the student number
         if (!student.getStudentNumber().equals(request.getStudentNumber()) && 
                 studentRepository.existsByStudentNumber(request.getStudentNumber())) {
-            throw new BusinessException("Student already exists with student number: "
-                    + request.getStudentNumber(),
-                    HttpStatus.CONFLICT);
+            throw new BusinessException(ErrorCode.STUDENT_NUMBER_DUPLICATE, request.getStudentNumber());
         }
 
         // Update student basic info
