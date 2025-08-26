@@ -48,9 +48,7 @@ public class StudentService {
     public StudentDTO.Response createStudent(StudentDTO.Request request) {
         // Validate student number is not already in use
         if (studentRepository.existsByStudentNumber(request.getStudentNumber())) {
-            throw new BusinessException("Student already exists with student number: "
-                    + request.getStudentNumber(),
-                    HttpStatus.CONFLICT);
+            throw new BusinessException(ErrorCode.STUDENT_NUMBER_DUPLICATE,request.getStudentNumber());
         }
         
         // Validate email is not already in use (if provided)
