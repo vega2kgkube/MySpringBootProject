@@ -56,17 +56,13 @@ public class StudentService {
             request.getDetailRequest().getEmail() != null && 
             !request.getDetailRequest().getEmail().isEmpty() && 
             studentDetailRepository.existsByEmail(request.getDetailRequest().getEmail())) {
-            throw new BusinessException("Student detail already exists with email: "
-                    + request.getDetailRequest().getEmail(),
-                    HttpStatus.CONFLICT);
+            throw new BusinessException(ErrorCode.EMAIL_DUPLICATE,request.getDetailRequest().getEmail());
         }
 
         // Validate phone number is not already in use
         if (request.getDetailRequest() != null && 
             studentDetailRepository.existsByPhoneNumber(request.getDetailRequest().getPhoneNumber())) {
-            throw new BusinessException("Student detail already exists with phone number: "
-                    + request.getDetailRequest().getPhoneNumber(),
-                    HttpStatus.CONFLICT);
+            throw new BusinessException(ErrorCode.PHONE_NUMBER_DUPLICATE,request.getDetailRequest().getPhoneNumber());
         }
 
         // Create student entity
