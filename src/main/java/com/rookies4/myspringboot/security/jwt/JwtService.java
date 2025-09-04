@@ -57,6 +57,7 @@ public class JwtService {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
+    //Token 검증
     public boolean validateToken(String token) {
         try {
             Jwts.parser()
@@ -71,15 +72,16 @@ public class JwtService {
         }
     }
 
+    //Token 생성
     public String generateToken(String userName){
         // ACCESS_EXPIRE 3600초 => 60분
         Date exprireDate = Date.from(Instant.now().plusSeconds(ACCESS_EXPIRE));
 
-        return Jwts.builder()
-                .signWith(KEY, ALGORITHM)
-                .subject(userName)
-                .issuedAt(new Date())
-                .expiration(exprireDate)
+        return Jwts.builder() //JwtBuilder
+                .signWith(KEY, ALGORITHM) // Secret 값과 알고리즘의 종류 설정
+                .subject(userName) // payload의 claim 생성
+                .issuedAt(new Date()) //생성시간
+                .expiration(exprireDate) //만료시간
                 .compact();
     }
 
