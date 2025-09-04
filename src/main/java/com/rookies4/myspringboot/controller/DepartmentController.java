@@ -51,9 +51,19 @@ public class DepartmentController {
         return ResponseEntity.ok(department);
     }
 
+    // 페이징 처리 없는 특정학과의 학생 목록 조회
     @GetMapping("/{id}/students")
     public ResponseEntity<List<StudentDTO.Response>> getStudentsByDepartmentId(@PathVariable Long id) {
         List<StudentDTO.Response> students = studentService.getStudentsByDepartmentId(id);
+        return ResponseEntity.ok(students);
+    }
+
+    // 페이징 처리된 특정학과의 학생 목록 조회
+    @GetMapping("/{id}/students/paged")
+    public ResponseEntity<Page<StudentDTO.Response>> getStudentsByDepartmentIdPaged(
+            @PathVariable Long id,
+            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+        Page<StudentDTO.Response> students = studentService.getStudentsByDepartmentId(id, pageable);
         return ResponseEntity.ok(students);
     }
 
