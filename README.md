@@ -1,4 +1,4 @@
-### [수업중 2-5] Spring Boot와 JPA(Java Persistence API) 활용
+### [수업중 2-7] Spring Boot와 JPA(Java Persistence API) 활용
 
 * Student 와 StudentDetail 1:1 (OneToOne) 엔티티 연관관계
 * Student 와 Department 1:N (OneToMany) 엔티티 연관관계
@@ -14,3 +14,6 @@
 * N+1 문제 해결
   * 성능개선
   * HibernateModule 사용하여 BatchSize 설정하기
+--- 
+* Basic Authentication(인증) 과 Authorization(권한)
+* JWT(Json Web Token) 토큰 인증처리
